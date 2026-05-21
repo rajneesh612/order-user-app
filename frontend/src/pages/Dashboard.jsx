@@ -15,6 +15,17 @@ function Dashboard() {
   const [showOrders, setShowOrders] =
   useState(false);
 
+  const [userId, setUserId] =
+  useState("");
+
+const [productId, setProductId] =
+  useState("");
+
+const [quantity, setQuantity] =
+  useState("");
+
+  
+
   useEffect(() => {
 
     fetchUsers();
@@ -47,6 +58,51 @@ function Dashboard() {
 
   setOrders(data);
 };
+
+const createOrder =
+  async () => {
+
+    const response =
+      await fetch(
+        "http://localhost:5000/api/orders",
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+
+            user_id: userId,
+
+            product_id:
+              productId,
+
+            quantity,
+          }),
+        }
+      );
+
+    const data =
+      await response.json();
+
+    console.log(
+      "Order created:",
+      data
+    );
+
+    fetchOrders();
+
+    setUserId("");
+
+    setProductId("");
+
+    setQuantity("");
+  };
+
 
   return (
 
@@ -102,6 +158,65 @@ function Dashboard() {
           ))}
         </div>
       )}
+
+
+      <h2>Create Order</h2>
+
+<input
+  type="number"
+
+  placeholder="User ID"
+
+  value={userId}
+
+  onChange={(e) =>
+    setUserId(e.target.value)
+  }
+/>
+
+<input
+  type="number"
+
+  placeholder="Product ID"
+
+  value={productId}
+
+  onChange={(e) =>
+    setProductId(e.target.value)
+  }
+
+  style={{
+    marginLeft: "10px"
+  }}
+/>
+
+<input
+  type="number"
+
+  placeholder="Quantity"
+
+  value={quantity}
+
+  onChange={(e) =>
+    setQuantity(e.target.value)
+  }
+
+  style={{
+    marginLeft: "10px"
+  }}
+/>
+
+<button
+  onClick={createOrder}
+
+  style={{
+    marginLeft: "10px"
+  }}
+>
+
+  Add Order
+
+</button>
 
     </div>
   );

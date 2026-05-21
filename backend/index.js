@@ -3,11 +3,16 @@ import express from 'express'; // Express framework
 import cors from 'cors'; // CORS middleware
 import pool from "./db.js"; // Database connection pool
 
+import logger
+from "./middleware/logger.js";
+
 const app = express();
 const PORT = 5000; // Port for backend server
 
 // Enable CORS for all routes
 app.use(cors());
+
+app.use(logger);
 // Enable JSON parsing for incoming requests
 app.use(express.json());
 
