@@ -22,7 +22,7 @@ function Login() {
       // Use deployed backend URL in production, localhost in development
       const backendUrl =
         process.env.NODE_ENV === "production"
-          ? "https://order-user-app-backend.onrender.com/api/login"
+          ? "https://backend-xi1g.onrender.com/api/login"
           : "http://localhost:5000/api/login";
 
       const response = await fetch(
