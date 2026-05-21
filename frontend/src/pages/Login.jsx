@@ -18,16 +18,20 @@ function Login() {
 
     try {
 
+
+      // Use deployed backend URL in production, localhost in development
+      const backendUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://order-user-app-backend.onrender.com/api/login"
+          : "http://localhost:5000/api/login";
+
       const response = await fetch(
-        "http://localhost:5000/api/login",
+        backendUrl,
         {
           method: "POST",
-
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             email,
             password,
